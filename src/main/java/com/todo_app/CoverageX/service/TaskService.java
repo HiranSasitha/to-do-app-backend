@@ -11,4 +11,6 @@ public interface TaskService {
     ResponseEntity<?> getAll(Integer page, Integer size);
 
     ResponseEntity<?> markTask(Integer id, Integer markId);
+
+    ResponseEntity<?> getCount();
 }

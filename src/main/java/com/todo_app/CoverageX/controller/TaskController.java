@@ -32,5 +32,10 @@ public class TaskController {
         return taskService.markTask(id,markId);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?>getCount(){
+        return taskService.getCount();
+    }
+
 
 }

@@ -46,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
             Page<Task> taskPage = taskRepository.findAll(pageable);
 
             List<TaskDto> dtoList = taskPage.getContent().stream()
-                    .map(task -> new TaskDto(task.getTitle(), task.getDescription(), task.isCompleted()))
+                    .map(task -> new TaskDto(task.getId(),task.getTitle(), task.getDescription(), task.isCompleted(),task.getCreatedAt().toString()))
                     .toList();
 
             Map<String, Object> response = new HashMap<>();
@@ -95,5 +95,17 @@ public class TaskServiceImpl implements TaskService {
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
+    }
+
+    @Override
+    public ResponseEntity<?> getCount() {
+
+        Integer doneCount = taskRepository.countAllByCompleted(true);
+        Integer pendingCount = taskRepository.countAllByCompleted(false);
+
+        Map<String, Integer> response = new HashMap<>();
+        response.put("done",doneCount);
+        response.put("pen",pendingCount);
+        return new ResponseEntity<>(new ResponseWrapper<>().responseOk(response),HttpStatus.OK);
     }
 }

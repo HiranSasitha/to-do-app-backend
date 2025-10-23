@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaskDto {
 
+    private Integer id;
     private String title;
     private String description;
-    private boolean completed = false;
+    private boolean completed ;
+    private String date;
 }
